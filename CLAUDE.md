@@ -128,7 +128,7 @@ O histórico é parte do que será avaliado — um avaliador lê o `git log` ant
 - **Regra de negócio e o teste que a prova vão no mesmo commit.** Regra sem teste é commit incompleto.
 - **`refactor:` nunca misturado com `feat:`.** Refatoração não muda comportamento; se mudou, não era refatoração.
 - **Corpo da mensagem com o porquê** quando o commit materializa uma decisão. No resto, título sozinho basta.
-- **Uma branch por frente**, fechada com PR para a `main` — mesmo trabalhando sozinho.
+- **Uma branch por frente**, fechada com PR para a `main` — mesmo trabalhando sozinho. A regra vale também para setup e documentação: a cerimônia é visível no histórico e custa pouco, enquanto commit direto na `main` precisaria ser justificado caso a caso na avaliação.
 - Não agregar o dia inteiro em um commit. Não reescrever histórico já empurrado.
 
 ### Segurança — não negociável
@@ -297,6 +297,10 @@ Toda decisão técnica relevante vai para `docs/decisions.md`, uma entrada curta
 ```
 
 Isso existe porque as decisões serão questionadas na avaliação. Resposta escrita na data em que foi tomada vale mais do que justificativa reconstruída depois.
+
+**Ordem cronológica inversa** — entrada mais recente no topo. O log cresce ao longo do projeto e a decisão mais nova é a que tem maior chance de ser consultada.
+
+Quando a decisão foi alinhada com outra pessoa, registrar nome, papel e data do alinhamento.
 
 ---
 
