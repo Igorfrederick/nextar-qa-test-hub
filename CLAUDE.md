@@ -111,25 +111,12 @@ Estas regras existem para serem violadas nos testes. Toda regra tem que falhar c
 Seis telas, seis Page Objects. Não criar tela nova sem sinalizar.
 
 ---
-
-## 4. Stack e convenções gerais
+## 4. Stack
 
 - **Frontend:** React + Vite, React Router, React Hook Form + Zod
 - **Backend:** Node.js + Express, MongoDB + Mongoose, JWT, bcrypt
 - **E2E:** Playwright + TypeScript
 - **Idioma:** identificadores de código, entidades e campos em **inglês**; textos de interface em **português**. Sem mistura dentro de um mesmo identificador.
-
-### Commits e histórico
-
-O histórico é parte do que será avaliado — um avaliador lê o `git log` antes de ler o código.
-
-- **Conventional Commits:** `feat:`, `fix:`, `test:`, `docs:`, `refactor:`, `chore:`
-- **Critério de corte:** unidade funcional coerente, **vertical**. Se o commit precisa do próximo para o projeto não quebrar, foi cortado cedo demais. Não cortar por camada — "todos os models", depois "todos os controllers" é exatamente o padrão a evitar.
-- **Regra de negócio e o teste que a prova vão no mesmo commit.** Regra sem teste é commit incompleto.
-- **`refactor:` nunca misturado com `feat:`.** Refatoração não muda comportamento; se mudou, não era refatoração.
-- **Corpo da mensagem com o porquê** quando o commit materializa uma decisão. No resto, título sozinho basta.
-- **Uma branch por frente**, fechada com PR para a `main` — mesmo trabalhando sozinho. A regra vale também para setup e documentação: a cerimônia é visível no histórico e custa pouco, enquanto commit direto na `main` precisaria ser justificado caso a caso na avaliação.
-- Não agregar o dia inteiro em um commit. Não reescrever histórico já empurrado.
 
 ### Segurança — não negociável
 
@@ -139,112 +126,40 @@ O histórico é parte do que será avaliado — um avaliador lê o `git log` ant
 
 ---
 
-## 5. Contrato da API
+## 5. Convenções — base de conhecimento
 
-Base: `/api`. Autenticação via header `Authorization: Bearer <token>`.
+As convenções detalhadas vivem em `.claude/knowledge/`, fonte única lida por todos os agentes. Este arquivo permanece como camada de contexto: domínio, escopo, telas, perfis, regras de negócio e protocolo de trabalho.
 
-```
-POST   /auth/register
-POST   /auth/login                        → { token, user }
-GET    /auth/me
+### Convenções
 
-GET    /projects
-POST   /projects                          [lead]
-GET    /projects/:id
-PATCH  /projects/:id                      [lead]
-DELETE /projects/:id                      [lead]
+| Arquivo | Cobre |
+|---|---|
+| `conventions/backend_conventions.md` | Camadas, JWT, bcrypt, env, erros, modelagem |
+| `conventions/frontend_conventions.md` | Estrutura, componentização, formulários, responsividade, `data-cy` |
+| `conventions/e2e_conventions.md` | POM, fixtures, factories, service layer, independência |
+| `conventions/api_contract.md` | Rotas, formato de erro, códigos, status HTTP |
+| `conventions/commit_conventions.md` | Tipos, critério de corte, branches, `.gitkeep` |
 
-GET    /projects/:id/suites
-POST   /suites                            [lead]
-GET    /suites/:id
-PATCH  /suites/:id                        [lead]
-DELETE /suites/:id                        [lead]
+### Checklists
 
-GET    /suites/:id/test-cases
-POST   /test-cases                        [lead]
-PATCH  /test-cases/:id                    [lead]
-DELETE /test-cases/:id                    [lead]
-POST   /suites/:id/import                 [lead]  → { imported, duplicates, errors }
+| Arquivo | Usado por |
+|---|---|
+| `checklists/checklist_backend.md` | `backend-api`, `code-reviewer` |
+| `checklists/checklist_frontend.md` | `frontend-react`, `code-reviewer` |
+| `checklists/checklist_e2e.md` | `e2e-playwright`, `code-reviewer` |
+| `checklists/checklist_pdi.md` | `revisor-pdi` |
 
-GET    /suites/:id/runs
-POST   /runs                              [lead]
-GET    /runs/:id                          → run + casos + execuções
-POST   /runs/:id/close                    [lead]
-GET    /runs/:id/coverage                 → { total, pass, fail, blocked, pending, percent }
+**Regra de manutenção:** quando uma decisão nova entrar em `docs/decisions.md`, verificar se ela altera algum arquivo de `.claude/knowledge/`. Convenção que evolui sem o reviewer saber vira ruído silencioso.
 
-PUT    /runs/:id/executions/:testCaseId   → cria ou atualiza (regra 6)
+### Dois pontos que não saem daqui
 
-POST   /runs/:id/comment-draft            → { draft }   ← única rota que usa LLM
-```
+**Seletores.** Todo elemento com o qual o teste interage carrega `data-cy`, no padrão `contexto-elemento[-identificador]`, kebab-case. Componente novo sem `data-cy` está incompleto. Detalhe em `frontend_conventions.md`.
 
-### Formato de erro
-
-Resposta única para todo erro da API:
-
-```json
-{ "error": { "code": "RUN_CLOSED", "message": "Ciclo encerrado não aceita novas execuções", "details": [] } }
-```
-
-Códigos HTTP: `400` validação, `401` sem token ou token inválido, `403` perfil sem permissão, `404` não encontrado, `409` violação de regra de negócio.
-
-O campo `code` é o que os testes E2E asseguram. Nunca asserir sobre a mensagem em português.
+**Page Object Model, um Page Object por tela.** Decisão alinhada com o tech lead, registrada em `docs/decisions.md`. Seis telas, seis Page Objects. Convenção de outro projeto que trate Page Object como violação não se aplica aqui. Detalhe em `e2e_conventions.md`.
 
 ---
 
-## 6. Convenção de seletores
-
-Todo elemento com o qual o teste interage carrega `data-cy`. Sem exceção — se um componente novo nasce sem `data-cy`, ele está incompleto.
-
-Padrão: `contexto-elemento[-identificador]`, kebab-case.
-
-```
-login-email-input
-login-submit-button
-project-list-row-{projectKey}
-test-case-row-{externalRef}
-execution-status-pass-button
-run-close-button
-coverage-percent-value
-comment-draft-textarea
-error-toast
-```
-
-Nunca usar como seletor em teste: classe CSS, texto visível, posição no DOM, hierarquia de tags.
-
----
-
-## 7. Estratégia de teste
-
-Page Object Model, **um Page Object por tela**. Decisão alinhada com o tech lead; registrada em `docs/decisions.md`.
-
-### O que fica no Page Object
-
-- Locators (`data-cy`)
-- Ações de baixo nível: `preencherLogin()`, `marcarStatus()`, `clicarSalvar()`
-- Navegação para a própria tela
-
-### O que **não** fica no Page Object
-
-| Preocupação | Onde fica | Motivo |
-|---|---|---|
-| Asserções | No teste | Arrange-Act-Assert precisa estar legível no arquivo do teste |
-| Criação de massa de dados | Factory + Service Layer (via API) | Setup por UI é lento e frágil |
-| Autenticação e estado inicial | Fixture do Playwright | Injeção de dependência, não herança de BasePage |
-| Chamadas HTTP | Service Layer | Page Object fala com a tela, não com a API |
-
-### Camadas de apoio
-
-- `factories/` — Factory com overrides usando faker. **Zero dado hardcoded.** Cada teste gera a sua própria massa, para garantir independência.
-- `services/` — encapsula o CRUD HTTP da API. Todo setup acontece aqui, não pela interface.
-- `fixtures/` — estende o `test` base do Playwright: autenticação por perfil, page objects injetados, cliente de API pronto.
-
-### Independência
-
-Nenhum teste pode depender da execução de outro, nem da ordem, nem de estado deixado por um anterior. Dado compartilhado entre dois testes é bug de arquitetura de teste, não conveniência.
-
----
-
-## 8. Estrutura de pastas
+## 6. Estrutura de pastas
 
 ```
 backend/
@@ -277,6 +192,10 @@ e2e/
   services/
   support/
 
+.claude/
+  agents/            cinco agentes
+  knowledge/         convenções e checklists
+
 docs/
   decisions.md       log de decisões técnicas
 ```
@@ -285,7 +204,23 @@ docs/
 
 ---
 
-## 9. Log de decisões
+## 7. Agentes
+
+Cinco agentes em `.claude/agents/`. A divisão é por **unidade de análise e momento**, não por assunto.
+
+| Agente | Analisa | Quando | Escreve código? |
+|---|---|---|---|
+| `backend-api` | Código em construção em `backend/` | Durante o trabalho, em pair | Sim |
+| `frontend-react` | Código em construção em `frontend/` | Durante o trabalho, em pair | Sim |
+| `e2e-playwright` | Código em construção em `e2e/` | Durante o trabalho, em pair | Sim |
+| `code-reviewer` | O **diff** de um PR, nas três frentes | Antes do merge | Não |
+| `revisor-pdi` | O **repositório inteiro** contra a rubrica | Antes de fechar uma frente | Não |
+
+Todos leem `.claude/knowledge/` — nenhum carrega checklist próprio.
+
+---
+
+## 8. Log de decisões
 
 Toda decisão técnica relevante vai para `docs/decisions.md`, uma entrada curta:
 
@@ -304,7 +239,7 @@ Quando a decisão foi alinhada com outra pessoa, registrar nome, papel e data do
 
 ---
 
-## 10. Protocolo de trabalho com os agentes
+## 9. Protocolo de trabalho com os agentes
 
 O modo é declarado no início de cada tarefa:
 
@@ -324,7 +259,7 @@ Regras permanentes para qualquer agente neste repositório:
 
 ---
 
-## 11. Decisões em aberto
+## 10. Decisões em aberto
 
 Confirmar antes de implementar a parte correspondente:
 

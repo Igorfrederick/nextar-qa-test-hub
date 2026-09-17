@@ -8,7 +8,7 @@ Os quatro critérios abaixo são os declarados na seção 1 do `CLAUDE.md`. Os i
 
 ## Frontend — estrutura, componentização e reutilização, boas práticas
 
-- [ ] Estrutura de pastas corresponde à seção 8 do `CLAUDE.md`
+- [ ] Estrutura de pastas corresponde à seção 6 do `CLAUDE.md`
 - [ ] Uma pasta por tela em `pages/`
 - [ ] Componentes reutilizáveis existem e são de fato reutilizados
 - [ ] Nenhuma duplicação de JSX que já exista como componente
