@@ -65,7 +65,7 @@ Exclusivamente `data-cy`. Nunca classe CSS, texto visível, posição no DOM ou 
 
 ## Cobertura
 
-Caminho de erro tem o mesmo peso do caminho feliz. As regras de negócio do `CLAUDE.md` existem para serem violadas nos testes: ciclo fechado, evidência obrigatória, notes obrigatório, fechamento com pendências, acesso negado por perfil.
+Caminho de erro tem o mesmo peso do caminho feliz. As oito regras de negócio do `CLAUDE.md` precisam de cobertura, mas nem todas se testam da mesma forma: sete se testam **violando** (a regra deve falhar, com `409` ou `400` conforme a camada), e a regra 6 se testa **observando o comportamento** — a segunda marcação atualiza em vez de duplicar. A lista item a item está em `checklists/checklist_e2e.md`.
 
 ## Anti-padrões
 
