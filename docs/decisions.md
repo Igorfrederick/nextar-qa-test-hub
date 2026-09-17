@@ -8,6 +8,18 @@ Formato de cada entrada: decisão, motivo, alternativa descartada.
 
 ---
 
+## [17/09/2026] Classificação das regras de negócio por camada e status
+
+**Decisão:** invariante de entrada valida por schema e retorna `400`; invariante de domínio valida no service e retorna `409`.
+
+**Motivo:** o critério é a dependência de estado, não a natureza da regra. Validação que precisa consultar o banco não pertence ao middleware. Sem esse critério o contrato ficava ambíguo: as oito regras estavam todas marcadas `409`, mas as regras 4 e 5 são forma do payload e o middleware de validação devolveria `400` antes de o service chegar ao `409` declarado — backend e E2E divergiriam.
+
+**Alternativa descartada:** tratar todas as oito como `409` no service, o que exigiria duplicar no service validações que o schema já garante.
+
+**Consequência:** regras `400` asserem `VALIDATION_ERROR` mais o campo em `details`; regras `409` têm `code` específico. A numeração das oito regras não muda — já está referenciada neste log, nos agentes e em commits.
+
+---
+
 ## [17/09/2026] Suporte a mobile e desktop, com desktop-first na ordem de trabalho
 
 **Decisão:** a interface suporta mobile e desktop, e nenhum dos dois pode quebrar. Desktop-first é a ordem de trabalho — o alvo que guia as decisões de layout —, não dispensa de suporte a mobile.

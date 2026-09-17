@@ -90,14 +90,26 @@ Project  →  Suite  →  TestCase
 
 Estas regras existem para serem violadas nos testes. Toda regra tem que falhar com erro claro e status HTTP adequado.
 
-1. `externalRef` é único dentro da suíte — importação deduplica em vez de duplicar
-2. Não é possível excluir Suíte que possua TestRun registrado
-3. Não é possível registrar Execution em TestRun com status `closed`
-4. Execution com status `pass` ou `fail` exige ao menos uma evidência
-5. Execution com status `fail` ou `blocked` exige `notes` preenchido
-6. Existe no máximo uma Execution por par (`testRunId`, `testCaseId`) — nova marcação atualiza, não duplica
-7. Não é possível fechar TestRun com casos ainda não executados
-8. Rascunho de comentário só é gerado para TestRun com todos os casos executados
+**O critério de classificação é a dependência de estado.** Invariante de entrada — o que se julga olhando apenas o payload — valida por schema no middleware e retorna `400`. Invariante de domínio — o que só se julga consultando o estado do sistema — valida no service e retorna `409`.
+
+| # | Regra | Camada | Status |
+|---|---|---|---|
+| 1 | `externalRef` único dentro da suíte — importação deduplica | Service | `409` |
+| 2 | Não excluir Suíte com TestRun registrado | Service | `409` |
+| 3 | Não registrar Execution em TestRun `closed` | Service | `409` |
+| 4 | Execution `pass` ou `fail` exige ao menos uma evidência no payload | Validação | `400` |
+| 5 | Execution `fail` ou `blocked` exige `notes` preenchido | Validação | `400` |
+| 6 | No máximo uma Execution por (`testRunId`, `testCaseId`) — atualiza, não duplica | Service | `409` |
+| 7 | Não fechar TestRun com casos não executados | Service | `409` |
+| 8 | Rascunho de comentário só para TestRun com todos os casos executados | Service | `409` |
+
+Corpo do erro de validação:
+
+```json
+{ "error": { "code": "VALIDATION_ERROR", "message": "...", "details": [{ "field": "notes", "issue": "..." }] } }
+```
+
+**Regras `400` asserem `VALIDATION_ERROR` mais o campo em `details`, não um `code` próprio. Regras `409` têm `code` específico da violação.**
 
 ### Telas
 

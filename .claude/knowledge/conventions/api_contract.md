@@ -64,11 +64,11 @@ Resposta única para todo erro:
 
 | Status | Quando |
 |---|---|
-| `400` | Falha de validação de entrada |
+| `400` | Validação de payload (schema, no middleware) |
 | `401` | Sem token ou token inválido |
 | `403` | Perfil autenticado sem permissão |
 | `404` | Recurso não encontrado |
-| `409` | Violação de regra de negócio |
+| `409` | Violação de regra de domínio (no service) |
 
 A distinção entre `401` e `403` é verificada: token ausente ou inválido é `401`; token válido com perfil insuficiente é `403`.
 
@@ -76,16 +76,26 @@ A distinção entre `401` e `403` é verificada: token ausente ou inválido é `
 
 Cada regra falha com `code` próprio e status adequado. Regra nova exige `code` novo.
 
-| # | Regra | Status |
-|---|---|---|
-| 1 | `externalRef` único dentro da suíte — importação deduplica | `409` |
-| 2 | Suíte com TestRun registrado não pode ser excluída | `409` |
-| 3 | TestRun `closed` não aceita Execution | `409` |
-| 4 | Execution `pass` ou `fail` exige ao menos uma evidência | `409` |
-| 5 | Execution `fail` ou `blocked` exige `notes` preenchido | `409` |
-| 6 | No máximo uma Execution por par (`testRunId`, `testCaseId`) | — (atualiza) |
-| 7 | TestRun com casos não executados não pode ser fechado | `409` |
-| 8 | Rascunho só é gerado com todos os casos executados | `409` |
+**Critério de classificação: a dependência de estado.** Invariante de entrada — julgável olhando apenas o payload — valida por schema no middleware e retorna `400`. Invariante de domínio — só julgável consultando o estado do sistema — valida no service e retorna `409`.
+
+| # | Regra | Camada | Status |
+|---|---|---|---|
+| 1 | `externalRef` único dentro da suíte — importação deduplica | Service | `409` |
+| 2 | Suíte com TestRun registrado não pode ser excluída | Service | `409` |
+| 3 | TestRun `closed` não aceita Execution | Service | `409` |
+| 4 | Execution `pass` ou `fail` exige ao menos uma evidência no payload | Validação | `400` |
+| 5 | Execution `fail` ou `blocked` exige `notes` preenchido | Validação | `400` |
+| 6 | No máximo uma Execution por (`testRunId`, `testCaseId`) — atualiza, não duplica | Service | `409` |
+| 7 | TestRun com casos não executados não pode ser fechado | Service | `409` |
+| 8 | Rascunho só é gerado com todos os casos executados | Service | `409` |
+
+Corpo do erro de validação:
+
+```json
+{ "error": { "code": "VALIDATION_ERROR", "message": "...", "details": [{ "field": "notes", "issue": "..." }] } }
+```
+
+**Regras `400` asserem `VALIDATION_ERROR` mais o campo em `details`, não um `code` próprio. Regras `409` têm `code` específico da violação.**
 
 ## Perfis
 
