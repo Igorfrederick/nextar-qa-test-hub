@@ -21,7 +21,7 @@ O projeto é avaliado por **análise do código no GitHub**, não pelo produto r
 | E2E | Suíte cobrindo login e autenticação, suíte cobrindo funcionalidades principais, testes isolados de backend, organização por feature ou jornada, qualidade dos seletores, asserções específicas, independência entre testes, setup e teardown apropriados |
 | Aplicação da solução | Código executável, organização, README claro, facilidade de uso |
 
-Esta tabela é a transcrição da rubrica formal do PDI. Onde ela divergir da rubrica, a rubrica vence e esta tabela é corrigida — ela é a fonte de `checklists/checklist_pdi.md`, e o que falta aqui fica invisível para o `revisor-pdi`.
+Esta tabela é a transcrição da rubrica formal do PDI. Onde ela divergir da rubrica, a rubrica vence e esta tabela é corrigida — ela é a fonte dos critérios por frente de `checklists/checklist_pdi.md` — que acrescenta a eles uma seção de transversais própria — e o que falta aqui fica invisível para o `revisor-pdi`.
 
 Toda decisão técnica deve ser defensável em voz alta. Código que funciona mas não é explicável não serve aqui.
 
@@ -229,10 +229,10 @@ Cinco agentes em `.claude/agents/`. A divisão é por **unidade de análise e mo
 | `backend-api` | Código em construção em `backend/` | Durante o trabalho, em pair | Sim |
 | `frontend-react` | Código em construção em `frontend/` | Durante o trabalho, em pair | Sim |
 | `e2e-playwright` | Código em construção em `e2e/` | Durante o trabalho, em pair | Sim |
-| `code-reviewer` | O **diff** de um PR, nas três frentes | Antes do merge | Não |
+| `code-reviewer` | O **diff** de um PR, nas três frentes e na documentação | Antes do merge | Não |
 | `revisor-pdi` | O **repositório inteiro** contra a rubrica | Antes de fechar uma frente | Não |
 
-Todos os agentes leem `.claude/knowledge/` como fonte única de convenção. O `code-reviewer` carrega adicionalmente seu próprio procedimento de revisão — os dez blocos —, que é comportamento do agente, não convenção do projeto.
+Todos os agentes leem `.claude/knowledge/` como fonte única de convenção, cada um os arquivos da sua frente. O `code-reviewer` carrega adicionalmente seu próprio procedimento de revisão — os dez blocos —, que é comportamento do agente, não convenção do projeto.
 
 ---
 

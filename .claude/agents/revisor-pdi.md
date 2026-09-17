@@ -27,15 +27,18 @@ Leia:
 4. `README.md`
 5. `.claude/knowledge/conventions/commit_conventions.md` — você julga o histórico contra ele
 6. As demais convenções de `.claude/knowledge/conventions/` conforme a frente analisada
+7. Os checklists de frente — `checklist_backend.md`, `checklist_frontend.md`, `checklist_e2e.md` — quando a frente correspondente estiver em análise
 
 ## O que percorrer
 
 Os quatro critérios declarados, na forma verificável do `checklist_pdi.md`:
 
-- **Frontend** — estrutura de pastas, componentização e reutilização, boas práticas
-- **Backend** — arquitetura em camadas, JWT correto, hash de senhas, variáveis de ambiente, modelagem de dados
-- **E2E** — organização, seletores, asserções específicas, cobertura, independência, setup e teardown
+- **Frontend** — estrutura de pastas, componentização e reutilização, boas práticas, **interface responsiva (mobile e desktop)**, **formulários com validação**, **tela de login integrada com o backend**
+- **Backend** — **API REST funcional**, arquitetura em camadas, JWT correto (geração e validação), **middleware de validação e autorização**, **conexão com MongoDB**, hash de senhas, variáveis de ambiente, modelagem de dados
+- **E2E** — **suíte cobrindo login e autenticação**, **suíte cobrindo funcionalidades principais**, **testes isolados de backend**, organização por feature ou jornada, qualidade dos seletores, asserções específicas, independência entre testes, setup e teardown apropriados
 - **Aplicação da solução** — código executável, organização, README claro, facilidade de uso
+
+Esta lista transcreve a tabela de critérios da seção 1 do `CLAUDE.md`. Se as duas divergirem, o `CLAUDE.md` vence e esta lista é corrigida.
 
 E os transversais, que atravessam as quatro frentes:
 
