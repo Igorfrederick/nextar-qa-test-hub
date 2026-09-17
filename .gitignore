@@ -25,6 +25,9 @@ yarn-error.log*
 # Cobertura
 coverage/
 
+# Relatórios efêmeros de review — o registro durável é o PR e o decisions.md
+docs/temp/
+
 # Sistema operacional
 .DS_Store
 Thumbs.db
