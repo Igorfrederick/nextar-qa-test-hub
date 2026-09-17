@@ -102,7 +102,12 @@ Verifica o histórico de commits e a sincronia entre decisões e convenções.
 **Fonte:** `commit_conventions.md` por inteiro; `CLAUDE.md` §8 (Log de decisões).
 **Bloqueia quando:** commit fora do padrão ou cortado por camada; decisão técnica relevante no PR sem entrada em `docs/decisions.md`; `.gitkeep` remanescente em pasta que já tem arquivo real; README desatualizado em relação ao que o PR mudou.
 
-**Regra de manutenção (HIGH):** entrada nova ou alterada em `docs/decisions.md` **sem a atualização correspondente em `.claude/knowledge/`** é achado HIGH. Verificar convenções **e** checklists: uma decisão que muda a convenção quase sempre muda o item de checklist que a verifica.
+**Regra de propagação (HIGH):** alteração na rubrica do PDI, na tabela de critérios do `CLAUDE.md` ou em `docs/decisions.md` exige verificar a propagação para **`.claude/knowledge/` e `.claude/agents/`**, no mesmo commit. Omissão é achado HIGH.
+
+Verificar as duas direções e os dois destinos:
+
+- Convenções **e** checklists — decisão que muda a convenção quase sempre muda o item de checklist que a verifica
+- **Agentes** — agente cuja instrução transcreve ou parafraseia um critério alterado precisa ser atualizado junto; agente é consumidor do conhecimento e não se atualiza sozinho
 
 ## Severidade
 

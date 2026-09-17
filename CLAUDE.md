@@ -163,9 +163,9 @@ As convenções detalhadas vivem em `.claude/knowledge/`, fonte única lida por 
 | `checklists/checklist_e2e.md` | `e2e-playwright`, `code-reviewer` |
 | `checklists/checklist_pdi.md` | `revisor-pdi` |
 
-Os checklists são a **forma executável** das convenções: a lista item a item que o reviewer percorre e marca no scorecard. Checklist que virar paráfrase da convenção é removido, não mantido.
+Os checklists são a **forma executável** das convenções: a lista item a item que o reviewer percorre e marca no scorecard. Checklist que virar paráfrase da convenção é removido, não mantido — verificado pelo `revisor-pdi` na varredura, porque é dessincronia que aparece com o tempo e não no diff de um PR.
 
-**Regra de manutenção:** decisão nova em `docs/decisions.md` quase sempre altera algum arquivo de `.claude/knowledge/`. Quem verifica isso é o `code-reviewer`, no BLOCO 9, onde a omissão é achado HIGH — e o `revisor-pdi`, na varredura do repositório.
+**Regra de propagação:** alteração na rubrica do PDI, na tabela de critérios da seção 1 ou em `docs/decisions.md` exige verificar a propagação para `.claude/knowledge/` **e** `.claude/agents/`, no mesmo commit. Quem verifica é o `code-reviewer`, no BLOCO 9, onde a omissão é achado HIGH — e o `revisor-pdi`, na varredura do repositório.
 
 ### Dois pontos que não saem daqui
 

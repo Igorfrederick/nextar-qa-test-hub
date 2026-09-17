@@ -8,6 +8,22 @@ Formato de cada entrada: decisão, motivo, alternativa descartada.
 
 ---
 
+## [17/09/2026] Regra de propagação passa a cobrir `.claude/agents/`
+
+**Decisão:** alteração na rubrica do PDI, na tabela de critérios da seção 1 do `CLAUDE.md` ou em `docs/decisions.md` exige verificar a propagação para `.claude/knowledge/` **e** `.claude/agents/`, no mesmo commit. Omissão é achado HIGH no BLOCO 9 do `code-reviewer` e item da varredura do `revisor-pdi`.
+
+**Motivo — a causa raiz, registrada:** o mecanismo de propagação anterior cobria apenas artefatos de **conhecimento** (convenções e checklists). Os **agentes são consumidores desse conhecimento e não eram verificados** — e vários deles transcrevem critérios em prosa dentro das próprias instruções, o que os torna cópias que envelhecem.
+
+A falha se materializou no mesmo dia em que a regra foi escrita: a correção da transcrição da rubrica chegou à tabela do `CLAUDE.md` e ao `checklist_pdi.md`, mas não à lista de critérios do `revisor-pdi` — justamente o agente encarregado de auditar contra a rubrica. Nove entregáveis ficaram fora do único lugar onde seriam cobrados.
+
+O gatilho também foi ampliado: a regra anterior disparava apenas em "decisão nova em `docs/decisions.md`". O que falhou hoje não foi uma decisão, e sim a correção de uma **fonte externa** — a rubrica. Gatilho estreito deixa a próxima variante escapar.
+
+**Alternativa descartada:** confiar em que o autor lembre de propagar. Foi o que falhou duas vezes no mesmo dia, uma delas enquanto se corrigia a primeira. Regra sem verificação automática é intenção, não mecanismo.
+
+**Consequência:** o `revisor-pdi` ganha também a verificação de paráfrase — checklist que apenas repete a convenção em outras palavras, sem acrescentar verificabilidade, deve ser removido. É dessincronia que aparece com o tempo, não no diff de um PR.
+
+---
+
 ## [17/09/2026] Classificação das regras de negócio por camada e status
 
 **Decisão:** invariante de entrada valida por schema e retorna `400`; invariante de domínio valida no service e retorna `409`.

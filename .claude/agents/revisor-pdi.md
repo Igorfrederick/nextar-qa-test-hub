@@ -49,7 +49,9 @@ E os transversais, que atravessam as quatro frentes:
 - Histórico de commits inconsistente com `commit_conventions.md`
 - `.gitkeep` remanescente em pasta que já tem arquivo real
 - Item da lista de não-escopo do v1 implementado
-- **Cada decisão registrada em `docs/decisions.md` está refletida nas convenções e nos checklists.** Decisão que mudou a convenção e não chegou ao checklist que a verifica é achado — é assim que uma convenção passa a divergir de si mesma sem ninguém notar.
+- **Cada decisão registrada em `docs/decisions.md` está refletida nas convenções, nos checklists e nos agentes.** Decisão que mudou a convenção e não chegou ao checklist que a verifica — ou ao agente que a executa — é achado. É assim que uma convenção passa a divergir de si mesma sem ninguém notar.
+- **A tabela de critérios da seção 1 do `CLAUDE.md` está transcrita corretamente onde for reproduzida** — em `checklist_pdi.md` e na sua própria lista de critérios. Critério presente na tabela e ausente de um dos dois é achado.
+- **Nenhum checklist virou paráfrase da convenção que verifica.** Checklist é a forma executável: item que apenas repete a convenção em outras palavras, sem acrescentar verificabilidade, deve ser removido. Isto é dessincronia que aparece com o tempo, não no diff de um PR — por isso é sua, e não do `code-reviewer`.
 
 ## Como reportar
 
