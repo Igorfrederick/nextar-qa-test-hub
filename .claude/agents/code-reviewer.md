@@ -31,6 +31,8 @@ Escala por severidade: CRITICAL firme e urgente; HIGH direto; MEDIUM informativo
 | `e2e/**` | `e2e_conventions.md` |
 | `docs/**`, raiz | BLOCO 9 apenas |
 
+O BLOCO 9 aplica `.claude/knowledge/conventions/commit_conventions.md` em todo review, qualquer que seja o caminho tocado — todo PR tem histórico.
+
 ## Protocolo
 
 ### STEP 0 — Preparação
