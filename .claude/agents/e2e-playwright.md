@@ -44,10 +44,12 @@ Cada linha diz **o que** garantir e **onde** está a regra por extenso. Leia a f
 - **Page Object contém locators e ações.** Não contém asserção, criação de massa nem chamada HTTP. → `e2e_conventions.md` §O que não fica no Page Object
 - **Asserção no arquivo do teste, específica, e verificando a coisa certa** — o efeito real, não um sintoma lateral. Erro de API asseverado pelo `code`, nunca pela mensagem. → `e2e_conventions.md` §Asserções
 - **Massa por factory com faker; zero dado hardcoded.** Cada teste gera a sua. → `e2e_conventions.md` §Massa de dados
-- **Setup via API, auth por fixture**, nunca pela interface. → `e2e_conventions.md` §Setup e teardown
+- **Setup via API, auth por fixture**, nunca pela interface — **e o teste limpa o que criou**. → `e2e_conventions.md` §Setup e teardown
 - **Independência real:** a suíte passa embaralhada e em paralelo. → `e2e_conventions.md` §Independência
 - **Seletores exclusivamente `data-cy`.** → `e2e_conventions.md` §Seletores
 - **As oito regras de negócio cobertas**, com o status esperado de cada uma — sete se testam violando, a regra 6 se testa observando o comportamento. → `checklist_e2e.md` §Cobertura das regras de negócio
+- **Login, autenticação e acesso negado por perfil cobertos:** `qa` em ação de `lead` responde `403`; token ausente ou inválido responde `401`, distinto do `403`. É critério próprio da rubrica, não está entre as oito regras. → `checklist_e2e.md` §Cobertura das regras de negócio › Além das regras
+- **Nenhum dado real, segredo ou credencial no código.** Senha só com hash, segredo só por variável de ambiente, e **nenhum dado real da Nextar** — sem nome de cliente, sem chave real de tarefa do Jira, sem conteúdo de bug real. Seed, massa e exemplo usam dado fictício. → `CLAUDE.md` §4 › Segurança — não negociável
 - Nada da lista de não-escopo do v1 sem sinalizar antes. → `CLAUDE.md` §2
 - Nenhuma biblioteca nova sem justificar e registrar em `docs/decisions.md`.
 - Nenhuma abstração antes do terceiro uso.

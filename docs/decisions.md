@@ -8,6 +8,32 @@ Formato de cada entrada: decisão, motivo, alternativa descartada.
 
 ---
 
+## [17/09/2026] Mudar a pergunta encontra mais que repetir a pergunta
+
+**Observação registrada como evidência empírica**, não como decisão de arquitetura. Produzida no PR do Passo 2, com data e histórico verificável.
+
+Quatro rodadas de revisão independente sobre o mesmo conjunto de arquivos, cada uma por um leitor sem contexto da conversa que produziu as mudanças:
+
+| Rodada | Pergunta | Achados |
+|---|---|---|
+| 1 | Contradição, referência quebrada, regra órfã, duplicação | 15 |
+| 2 | A mesma, após as correções | 12 |
+| 3 | A mesma, após as correções | 5 |
+| 4 | **Outra:** integridade de ponteiro, informação perdida, índice que não ensina | 6 |
+
+**O que os números mostram:** as três primeiras rodadas fizeram a mesma pergunta e a curva caiu — 15, 12, 5. A quarta mudou a pergunta e a curva subiu. E três dos seis achados da quarta eram **lacunas anteriores a todas as rodadas**, que nenhuma das três primeiras viu: a regra permanente de não vazar dado real da Nextar estava ausente de dois dos três agentes que escrevem código, desde que foram criados.
+
+O motivo é estrutural: as três primeiras procuravam **divergência entre arquivos**, e uma regra ausente de todos os lugares não diverge de nada. Nenhuma quantidade de repetição da mesma pergunta a encontraria.
+
+**Duas lições, ambas sobre onde a revisão por IA agrega no fluxo de QA:**
+
+1. **Mudar a categoria da pergunta encontra mais que repetir a mesma pergunta.** Rodada adicional com o mesmo critério tem retorno decrescente; rodada com critério novo reabre o espaço de busca.
+2. **Revisor com contexto da própria intenção não encontra nada disso.** Todas as quatro rodadas foram feitas por leitor sem histórico. A auto-revisão, feita antes da primeira rodada, havia dado veredito favorável — ver [Verificação por leitor sem contexto é parte do mecanismo].
+
+Aplicação prática no projeto: uma suíte de teste que roda sempre a mesma pergunta tem o mesmo retorno decrescente. O ganho vem de mudar o ângulo — caminho de erro, ordem embaralhada, paralelismo, perfil sem permissão — não de repetir o caminho feliz mais vezes.
+
+---
+
 ## [17/09/2026] Agentes apontam para as convenções em vez de transcrevê-las
 
 **Decisão:** as instruções dos agentes deixam de reproduzir convenção por extenso e passam ao formato **o que verificar + ponteiro para a fonte** (`arquivo.md §Seção`). O agente continua sabendo o que garantir; a regra por extenso vive num lugar só.
@@ -19,6 +45,8 @@ O dado que sustenta a decisão: os blocos do `code-reviewer` foram convertidos p
 **Alternativa descartada:** manter a transcrição e confiar na regra de propagação. Descartada pela evidência acima. A regra continua valendo — ela cobre o que não dá para transformar em ponteiro, como a tabela de critérios reproduzida no `revisor-pdi`.
 
 **Cuidado de execução registrado:** ponteiro sem contexto vira indireção vazia, e ponteiro quebrado é pior que transcrição desatualizada — a transcrição ao menos diz algo errado que dá para notar; o ponteiro quebrado não diz nada. Por isso cada linha mantém **o que verificar** antes da fonte, e todo `§` referenciado é conferido contra o heading real.
+
+**Risco próprio do formato, aprendido na aplicação:** **a linha-índice precisa ser tão larga quanto a seção que indexa.** Índice mais estreito que a fonte faz o agente parar onde o índice termina — ele lê a afirmação, considera-a atendida e não abre o resto da seção. Aconteceu três vezes na primeira aplicação: "as oito regras de negócio" excluiu do enquadramento a cobertura de `401`/`403`, que é critério próprio da rubrica; "setup via API" omitiu o teardown, que é metade do nome da seção; e a linha de segurança cobria dois dos três bullets da fonte, deixando "nenhum dado real" sem gatilho. Transcrição desatualizada diz algo errado que dá para notar; índice estreito não diz nada sobre o que omitiu.
 
 ---
 
