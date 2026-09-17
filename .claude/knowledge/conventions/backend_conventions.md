@@ -61,6 +61,7 @@ A ferramenta de teste ainda não foi escolhida — decisão em aberto para o Pas
 - Middleware dedicado, aplicado na definição da rota
 - Perfis (`qa`, `lead`) como constante única; string mágica espalhada pelo código é achado
 - Rotas marcadas `[lead]` no contrato exigem o middleware; ausência é falha de segurança, não esquecimento
+- **A tabela de perfis e permissões é do `api_contract.md`.** Não reproduzir aqui.
 
 ## Validação de entrada
 
@@ -70,26 +71,14 @@ A ferramenta de teste ainda não foi escolhida — decisão em aberto para o Pas
 
 ## Erros
 
-Formato único, sem exceção:
+**Fonte do formato e dos status: `api_contract.md`.** O formato único de erro, a semântica de `code`/`message`/`details` e o mapa de status HTTP vivem lá e não são repetidos aqui — cópia diverge em silêncio.
 
-```json
-{ "error": { "code": "RUN_CLOSED", "message": "Ciclo encerrado não aceita novas execuções", "details": [] } }
-```
+O que cabe ao backend garantir:
 
-- `code` em `SCREAMING_SNAKE_CASE`, estável, nascido de um único catálogo
-- `message` em português, camada de apresentação
 - Middleware de erro centralizado; `try/catch` repetido em cada controller é achado
+- `code` nascido de um catálogo único, nunca montado ad hoc no controller
 - Regra de negócio nova exige `code` novo no catálogo
-
-Mapa de status:
-
-| Status | Significado |
-|---|---|
-| `400` | Falha de validação de entrada |
-| `401` | Sem token ou token inválido |
-| `403` | Perfil sem permissão para a ação |
-| `404` | Recurso não encontrado |
-| `409` | Violação de regra de negócio |
+- O status devolvido corresponde à camada que detectou a falha: validação de payload no middleware, violação de domínio no service
 
 ## Modelagem
 
