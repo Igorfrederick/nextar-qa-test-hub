@@ -8,6 +8,32 @@ Formato de cada entrada: decisão, motivo, alternativa descartada.
 
 ---
 
+## [17/09/2026] Agentes apontam para as convenções em vez de transcrevê-las
+
+**Decisão:** as instruções dos agentes deixam de reproduzir convenção por extenso e passam ao formato **o que verificar + ponteiro para a fonte** (`arquivo.md §Seção`). O agente continua sabendo o que garantir; a regra por extenso vive num lugar só.
+
+**Motivo:** transcrição cria cópia, e cópia depende de execução manual perfeita para permanecer sincronizada. A regra de propagação reduz o risco mas não o elimina — ela já falhou uma vez com a regra no lugar, no mesmo dia em que foi escrita.
+
+O dado que sustenta a decisão: os blocos do `code-reviewer` foram convertidos para esse formato antes dos demais agentes, e **nenhum achado das revisões seguintes caiu nos blocos convertidos** — todos caíram em trechos ainda transcritos. Apontar elimina a classe de achado; corrigir transcrição elimina a instância.
+
+**Alternativa descartada:** manter a transcrição e confiar na regra de propagação. Descartada pela evidência acima. A regra continua valendo — ela cobre o que não dá para transformar em ponteiro, como a tabela de critérios reproduzida no `revisor-pdi`.
+
+**Cuidado de execução registrado:** ponteiro sem contexto vira indireção vazia, e ponteiro quebrado é pior que transcrição desatualizada — a transcrição ao menos diz algo errado que dá para notar; o ponteiro quebrado não diz nada. Por isso cada linha mantém **o que verificar** antes da fonte, e todo `§` referenciado é conferido contra o heading real.
+
+---
+
+## [17/09/2026] Verificação por leitor sem contexto é parte do mecanismo
+
+**Decisão:** a regra de propagação se completa com uma revisão feita por um leitor **sem histórico da conversa que produziu a mudança**, recebendo apenas os arquivos. Não é etapa opcional nem cerimônia — é o que torna a regra verificável.
+
+**Motivo:** **regra nova falha primeiro com quem a escreveu.** Quem acabou de escrever tem o conteúdo na cabeça e lê a intenção em vez do texto — confirma o que quis dizer, não o que ficou escrito. Foi o que aconteceu aqui: a regra de propagação foi escrita, aplicada a um agente, e violada em outro no mesmo commit, sem que a auto-revisão percebesse.
+
+A evidência está na curva das revisões independentes: 15 achados, depois 12, depois 5 — cada rodada encontrando a regra da rodada anterior aplicada incompletamente. Nenhuma delas teria acontecido em auto-revisão.
+
+**Alternativa descartada:** confiar na revisão de quem escreveu, com checklist. Descartada porque o checklist também é lido com a intenção na cabeça. O problema não é falta de rigor; é que o autor não consegue simular desconhecimento do próprio texto.
+
+---
+
 ## [17/09/2026] Regra de propagação passa a cobrir `.claude/agents/`
 
 **Decisão:** alteração na rubrica do PDI, na tabela de critérios da seção 1 do `CLAUDE.md` ou em `docs/decisions.md` exige verificar a propagação para `.claude/knowledge/` **e** `.claude/agents/`, no mesmo commit. Omissão é achado HIGH no BLOCO 9 do `code-reviewer` e item da varredura do `revisor-pdi`.

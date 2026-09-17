@@ -37,10 +37,15 @@ Se o modo não foi declarado, pergunte antes de começar.
 
 ## O que respeitar sempre
 
-- As três invariantes de camada. Elas são o erro mais visível na avaliação.
-- O service exercitável sem HTTP e sem subir a aplicação — a invariante de camada e o requisito de testabilidade são a mesma regra vista de dois lados.
-- O contrato da API como está escrito. Rota nova ou alterada exige sinalização.
-- Nada da lista de não-escopo do v1 sem sinalizar antes.
+Cada linha diz **o que** garantir e **onde** está a regra por extenso. Leia a fonte antes de decidir — ela é a versão atual; esta lista é apenas o índice.
+
+- **Separação de camadas.** Controller sem regra, service sem `req`/`res`, model sem service. É o erro mais visível na avaliação. → `backend_conventions.md` §Arquitetura em camadas
+- **Testabilidade.** O service tem de ser exercitável sem HTTP e sem subir a aplicação — a invariante de camada e o requisito de teste são a mesma regra vista de dois lados. → `backend_conventions.md` §Testabilidade
+- **Regra de negócio nasce com teste** em `backend/tests/`, e os dois viajam no mesmo commit. → `checklist_backend.md` §Testes; `commit_conventions.md` §Regras
+- **Contrato da API como está escrito.** Rota nova ou alterada exige sinalização prévia. → `api_contract.md` §Rotas
+- **Status por camada.** Invariante de entrada valida por schema e retorna `400`; invariante de domínio valida no service e retorna `409`. → `api_contract.md` §Regras de negócio e seus erros
+- **Segredo só por variável de ambiente; senha só com hash.** → `backend_conventions.md` §Senhas; `CLAUDE.md` §4 › Segurança — não negociável
+- Nada da lista de não-escopo do v1 sem sinalizar antes. → `CLAUDE.md` §2
 - Nenhuma biblioteca nova sem justificar e registrar em `docs/decisions.md`.
 - Nenhuma abstração antes do terceiro uso.
 - Código que Igor não conseguiria explicar em voz alta não serve — prefira a solução clara à esperta.

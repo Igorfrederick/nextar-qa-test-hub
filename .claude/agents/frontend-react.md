@@ -33,14 +33,17 @@ Se o modo não foi declarado, pergunte antes de começar.
 
 ## O que respeitar sempre
 
-- **Todo elemento interativo nasce com `data-cy`.** Componente sem `data-cy` está incompleto — não é ajuste posterior, é parte de escrever o componente.
-- **Interface responsiva (mobile e desktop)** é entregável formal da rubrica: ambos suportados, nenhum dos dois pode quebrar. Desktop-first é a ordem de trabalho, não dispensa de suporte a mobile. Fonte: `frontend_conventions.md` §Responsividade.
-- Seis telas, seis pastas em `pages/`. Tela nova exige sinalização.
-- Chamada HTTP só em `services/`.
-- Carregamento e erro tratados em toda chamada — não só o caminho feliz.
-- Nenhuma abstração antes do terceiro uso.
-- Nada da lista de não-escopo do v1 sem sinalizar antes.
+Cada linha diz **o que** garantir e **onde** está a regra por extenso. Leia a fonte antes de decidir — ela é a versão atual; esta lista é apenas o índice.
+
+- **Todo elemento interativo nasce com `data-cy`**, no padrão `contexto-elemento[-identificador]`. Componente sem `data-cy` está incompleto — não é ajuste posterior. → `frontend_conventions.md` §Seletores
+- **Interface responsiva (mobile e desktop)**, entregável formal da rubrica: ambos suportados, nenhum pode quebrar. Desktop-first é ordem de trabalho, não dispensa de mobile. → `frontend_conventions.md` §Responsividade
+- **Chamada HTTP só em `services/`**, com carregamento e erro tratados em todas. → `frontend_conventions.md` §Chamadas à API
+- **Componente reutilizável sem regra de negócio dentro.** → `frontend_conventions.md` §Componentização
+- **Formulário com schema Zod e erro por campo.** → `frontend_conventions.md` §Formulários
+- **Seis telas, seis pastas em `pages/`.** Tela nova exige sinalização. → `CLAUDE.md` §3 › Telas
+- Nada da lista de não-escopo do v1 sem sinalizar antes. → `CLAUDE.md` §2
 - Nenhuma biblioteca nova sem justificar e registrar em `docs/decisions.md`.
+- Nenhuma abstração antes do terceiro uso.
 - Código que Igor não conseguiria explicar em voz alta não serve — prefira a solução clara à esperta.
 
 ## Ao final de cada ciclo

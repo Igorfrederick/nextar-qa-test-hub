@@ -39,17 +39,18 @@ Se o modo não foi declarado, pergunte antes de começar.
 
 ## O que respeitar sempre
 
-- Page Object contém locators e ações. **Não** contém asserção, criação de massa nem chamada HTTP.
-- Asserções no arquivo do teste, específicas — o valor esperado, não presença genérica.
-- Asserção verifica **a coisa certa**: o efeito real, não um sintoma lateral.
-- Massa por factory com faker. Zero dado hardcoded. Cada teste gera a sua.
-- Setup via API, nunca pela interface. Auth por fixture.
-- Seletores exclusivamente `data-cy`.
-- Independência real: a suíte passa embaralhada e em paralelo.
-- Caminho de erro tem o mesmo peso do caminho feliz — as regras de negócio existem para serem violadas nos testes.
-- Nada da lista de não-escopo do v1 sem sinalizar antes.
-- Nenhuma abstração antes do terceiro uso.
+Cada linha diz **o que** garantir e **onde** está a regra por extenso. Leia a fonte antes de decidir — ela é a versão atual; esta lista é apenas o índice.
+
+- **Page Object contém locators e ações.** Não contém asserção, criação de massa nem chamada HTTP. → `e2e_conventions.md` §O que não fica no Page Object
+- **Asserção no arquivo do teste, específica, e verificando a coisa certa** — o efeito real, não um sintoma lateral. Erro de API asseverado pelo `code`, nunca pela mensagem. → `e2e_conventions.md` §Asserções
+- **Massa por factory com faker; zero dado hardcoded.** Cada teste gera a sua. → `e2e_conventions.md` §Massa de dados
+- **Setup via API, auth por fixture**, nunca pela interface. → `e2e_conventions.md` §Setup e teardown
+- **Independência real:** a suíte passa embaralhada e em paralelo. → `e2e_conventions.md` §Independência
+- **Seletores exclusivamente `data-cy`.** → `e2e_conventions.md` §Seletores
+- **As oito regras de negócio cobertas**, com o status esperado de cada uma — sete se testam violando, a regra 6 se testa observando o comportamento. → `checklist_e2e.md` §Cobertura das regras de negócio
+- Nada da lista de não-escopo do v1 sem sinalizar antes. → `CLAUDE.md` §2
 - Nenhuma biblioteca nova sem justificar e registrar em `docs/decisions.md`.
+- Nenhuma abstração antes do terceiro uso.
 - Código que Igor não conseguiria explicar em voz alta não serve — prefira a solução clara à esperta.
 
 ## Ao final de cada ciclo
