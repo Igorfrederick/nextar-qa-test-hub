@@ -14,6 +14,8 @@ validators/   schemas Zod de request
 config/       conexão e variáveis de ambiente
 ```
 
+`backend/tests/` acompanha essas camadas: testes automatizados de service e de API, sem navegador.
+
 Três invariantes, nesta ordem de gravidade:
 
 1. **Controller não contém regra de negócio.** Extrai da requisição, chama o service, devolve a resposta.
@@ -21,6 +23,25 @@ Três invariantes, nesta ordem de gravidade:
 3. **Model não conhece service.** O schema descreve a forma do dado e suas restrições. Regra que dependa de outra entidade vive no service.
 
 Violação desses três é o erro mais visível na avaliação de "arquitetura em camadas".
+
+## Testabilidade
+
+A separação de camadas existe também para isto: **o service tem de ser exercitável sem HTTP e sem subir a aplicação.** Recebe dados, devolve dados ou lança erro de domínio — nada nele exige requisição, resposta ou servidor em pé.
+
+Consequências práticas:
+
+- Service que importa `req`/`res` não é testável isoladamente. A invariante de camada e o requisito de testabilidade são a mesma regra vista de dois lados.
+- Dependência externa (conexão, relógio, gerador de identificador) entra por parâmetro ou por módulo de `config/`, nunca instanciada dentro da regra.
+- **Regra de negócio nasce com teste automatizado em `backend/tests/`, sem depender de UI**, e os dois viajam no mesmo commit.
+
+A ferramenta de teste ainda não foi escolhida — decisão em aberto para o Passo 3. A convenção é agnóstica: o que se exige é teste automatizado que exercite o service sem navegador.
+
+## Conexão com o banco
+
+- Conexão isolada em `config/`, nunca aberta dentro de service, controller ou model
+- URI exclusivamente por variável de ambiente (`MONGODB_URI`)
+- Falha de conexão tratada de forma explícita: a aplicação não sobe silenciosamente sem banco
+- Encerramento controlado da conexão, para que a suíte de teste não fique pendurada
 
 ## Autenticação
 

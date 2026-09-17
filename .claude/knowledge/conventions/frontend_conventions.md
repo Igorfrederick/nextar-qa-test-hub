@@ -37,7 +37,8 @@ São seis telas, seis pastas em `pages/`. Tela nova exige sinalização antes.
 
 ## Responsividade
 
-- A aplicação é usada em **desktop**, ao lado de outras ferramentas de QA da equipe. Não há requisito mobile-first.
+- **Interface responsiva (mobile e desktop) é entregável formal da rubrica do PDI.** Ambos os alvos são suportados e nenhum dos dois pode quebrar.
+- **Desktop-first na ordem de trabalho.** A aplicação é usada em desktop, ao lado de outras ferramentas de QA da equipe — esse é o alvo que guia as decisões de layout. Desktop-first é ordem de design, não dispensa de suporte a mobile.
 - Responsividade real, com layout que reflui; `overflow` escondendo conteúdo é achado
 - A tela de execução (`/runs/:id`) é a de maior uso: fica aberta por longos períodos, lado a lado com outras janelas. Priorize densidade de informação útil e ação rápida sobre caso de teste, não área de toque
 

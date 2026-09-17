@@ -16,10 +16,12 @@ O projeto é avaliado por **análise do código no GitHub**, não pelo produto r
 
 | Frente | Critérios de avaliação |
 |---|---|
-| Frontend | Estrutura de pastas, componentização e reutilização, boas práticas |
-| Backend | Arquitetura em camadas, JWT correto (geração e validação), hash de senhas, variáveis de ambiente, modelagem de dados |
-| E2E | Organização dos testes, qualidade dos seletores, asserções específicas, cobertura dos fluxos, independência entre testes, setup e teardown |
+| Frontend | Estrutura de pastas, componentização e reutilização, boas práticas, interface responsiva (mobile e desktop), formulários com validação, tela de login integrada com o backend |
+| Backend | API REST funcional, arquitetura em camadas, JWT correto (geração e validação), middleware de validação e autorização, conexão com MongoDB, hash de senhas, variáveis de ambiente, modelagem de dados |
+| E2E | Suíte cobrindo login e autenticação, suíte cobrindo funcionalidades principais, testes isolados de backend, organização por feature ou jornada, qualidade dos seletores, asserções específicas, independência entre testes, setup e teardown apropriados |
 | Aplicação da solução | Código executável, organização, README claro, facilidade de uso |
+
+Esta tabela é a transcrição da rubrica formal do PDI. Onde ela divergir da rubrica, a rubrica vence e esta tabela é corrigida — ela é a fonte de `checklists/checklist_pdi.md`, e o que falta aqui fica invisível para o `revisor-pdi`.
 
 Toda decisão técnica deve ser defensável em voz alta. Código que funciona mas não é explicável não serve aqui.
 
@@ -172,7 +174,7 @@ backend/
     middlewares/     auth, autorização por perfil, validação, erro
     validators/      schemas Zod de request
     utils/
-  tests/
+  tests/           testes automatizados de service e API, sem UI
 
 frontend/
   src/
@@ -266,3 +268,4 @@ Confirmar antes de implementar a parte correspondente:
 - Modelo e provedor de LLM para a rota `comment-draft`, conforme política interna de uso de IA
 - Formato exato do arquivo de importação (colunas esperadas no CSV/JSON gerado pelos agentes atuais)
 - Formato-padrão do comentário de validação no Jira, a ser usado como referência na geração do rascunho
+- Ferramenta de teste automatizado para `backend/tests/` — a convenção é agnóstica; a escolha entra no Passo 3 e exige registro em `docs/decisions.md`

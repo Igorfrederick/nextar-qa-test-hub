@@ -33,8 +33,9 @@ Aplicar a qualquer diff que toque `frontend/**`. Base: `conventions/frontend_con
 
 ## Responsividade
 
+- [ ] **Responsividade:** a interface é utilizável em mobile e desktop, sem quebra de layout nem conteúdo inacessível — critério de avaliação do PDI
+- [ ] **Densidade:** telas de listagem e execução priorizam quantidade de informação visível sobre espaçamento generoso
 - [ ] Layout reflui de verdade; sem `overflow` escondendo conteúdo
-- [ ] Tela de execução legível em janela estreita, lado a lado com outra aplicação
 
 ## Idioma
 

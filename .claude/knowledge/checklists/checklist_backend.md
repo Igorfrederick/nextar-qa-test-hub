@@ -48,6 +48,21 @@ Aplicar a qualquer diff que toque `backend/**`. Base: `conventions/backend_conve
 - [ ] `Evidence` como subdocumento de Execution, não coleção própria
 - [ ] Referência entre entidades por `ObjectId`, campo terminando em `Id`
 
+## Testes
+
+- [ ] **Toda regra de negócio tem teste automatizado em `backend/tests/`, sem depender de UI**
+- [ ] **Regra de negócio sem teste no mesmo commit é achado**
+- [ ] O service é exercitável sem HTTP e sem subir a aplicação
+- [ ] Dependência externa (conexão, relógio, identificador) entra por parâmetro ou `config/`, não instanciada dentro da regra
+- [ ] Caminho de erro coberto, não só o caminho feliz
+
+## Conexão com o banco
+
+- [ ] Conexão isolada em `config/`, não aberta em service, controller ou model
+- [ ] `MONGODB_URI` por variável de ambiente
+- [ ] Falha de conexão tratada — a aplicação não sobe silenciosamente sem banco
+- [ ] Encerramento controlado da conexão
+
 ## Contrato
 
 - [ ] Rota, verbo e formato conforme `api_contract.md`

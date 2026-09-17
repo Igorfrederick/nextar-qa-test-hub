@@ -8,6 +8,32 @@ Formato de cada entrada: decisão, motivo, alternativa descartada.
 
 ---
 
+## [17/09/2026] Suporte a mobile e desktop, com desktop-first na ordem de trabalho
+
+**Decisão:** a interface suporta mobile e desktop, e nenhum dos dois pode quebrar. Desktop-first é a ordem de trabalho — o alvo que guia as decisões de layout —, não dispensa de suporte a mobile.
+
+**Motivo:** a entrada anterior deste mesmo dia excedeu o escopo. Ela negou o requisito mobile ("não há requisito mobile-first") quando o entregável formal da rubrica pede **interface responsiva (mobile e desktop)**. A distinção entre **ordem de design** e **suporte de plataforma** é o que torna a correção defensável: abandonar mobile-first como ordem de trabalho é legítimo e continua valendo; abandonar o suporte a mobile eliminaria um critério pelo qual o projeto será avaliado.
+
+**Alternativa descartada:** editar a entrada anterior para corrigi-la. Descartada pela convenção do próprio log — decisão revista nunca é apagada; entra entrada nova declarando o que substitui. O erro e a correção são ambos parte do registro.
+
+**Substitui:** a frase "a prioridade de design passa a ser densidade (…) não área de toque" da entrada "Tela de execução deixa de ser mobile-first", na parte em que ela foi lida como dispensa de suporte a mobile. A prioridade de densidade permanece válida; ela convive com o suporte responsivo.
+
+---
+
+## [17/09/2026] Transcrição da rubrica do PDI corrigida no `CLAUDE.md`
+
+**Decisão:** a tabela de critérios da seção 1 do `CLAUDE.md` passa a transcrever a rubrica formal do PDI por inteiro. Entram os entregáveis que faltavam: interface responsiva, formulários com validação e tela de login integrada (frontend); API REST funcional, middleware de validação e autorização e conexão com MongoDB (backend); suíte de login e autenticação, suíte de funcionalidades principais, **testes isolados de backend**, organização por feature ou jornada, independência entre testes e setup/teardown apropriados (E2E).
+
+**Motivo:** a transcrição original estava incompleta, e a incompletude era invisível por construção: o `checklist_pdi.md` deriva dessa tabela, e o `revisor-pdi` — único agente encarregado de auditar contra a rubrica — lê o checklist, não a rubrica. Entregável ausente da tabela ficava ausente de toda a cadeia de verificação. O caso mais grave era **testes isolados de backend**, que não tinha convenção, checklist, ferramenta nem agente responsável, e cuja ausência tornava inexequível a regra de commit "regra de negócio e o teste que a prova viajam no mesmo commit".
+
+**O que permitiu a correção:** a cláusula de precedência escrita no próprio `checklist_pdi.md` — *"se a rubrica formal divergir deste arquivo, a rubrica vence e este arquivo é corrigido"*. Fonte externa vence derivado interno. A cláusula foi escrita justamente por se suspeitar que a transcrição pudesse estar incompleta, e esta é a primeira vez que é acionada.
+
+**Alternativa descartada:** corrigir apenas os checklists, sem mexer na tabela de critérios. Descartada porque deixaria a fonte errada e o derivado certo — a próxima pessoa a regenerar um checklist a partir da tabela reintroduziria a lacuna.
+
+**Consequência registrada:** os testes de backend passam a ser escopo do `backend-api`, e o service ganha requisito explícito de testabilidade — exercitável sem HTTP e sem subir a aplicação. A ferramenta de teste permanece decisão em aberto para o Passo 3.
+
+---
+
 ## [17/09/2026] Tela de execução deixa de ser mobile-first
 
 **Decisão:** a aplicação é usada em desktop, ao lado de outras ferramentas de QA da equipe. A tela de execução (`/runs/:id`) deixa de ter requisito mobile-first. Responsividade continua exigida — layout que reflui, sem `overflow` escondendo conteúdo — mas a prioridade de design passa a ser densidade de informação e ação rápida sobre caso de teste, não área de toque.

@@ -54,6 +54,8 @@ Classifique por gravidade. Priorize o que é visível numa primeira leitura do r
 
 Se uma frente está incompleta por estar em construção, diga isso em vez de listar ausências como falhas — distinguir "ainda não feito" de "feito errado" é parte do seu trabalho.
 
+Use a marcação do `checklist_pdi.md`: item com `[pendente: Passo N]` depende de etapa futura e **não é falha**. Reporte os dois grupos separadamente — o que deveria estar pronto e não está vem primeiro; o que depende de etapa futura vem como panorama do que falta. Report que mistura os dois vira ruído e deixa de ser lido.
+
 ## Regras
 
 1. **Read-only.** Não altere nenhum arquivo.
