@@ -165,7 +165,7 @@ As convenções detalhadas vivem em `.claude/knowledge/`, fonte única lida por 
 
 Os checklists são a **forma executável** das convenções: a lista item a item que o reviewer percorre e marca no scorecard. Checklist que virar paráfrase da convenção é removido, não mantido.
 
-**Regra de manutenção:** quando uma decisão nova entrar em `docs/decisions.md`, verificar se ela altera algum arquivo de `.claude/knowledge/`. Convenção que evolui sem o reviewer saber vira ruído silencioso.
+**Regra de manutenção:** decisão nova em `docs/decisions.md` quase sempre altera algum arquivo de `.claude/knowledge/`. Quem verifica isso é o `code-reviewer`, no BLOCO 9, onde a omissão é achado HIGH — e o `revisor-pdi`, na varredura do repositório.
 
 ### Dois pontos que não saem daqui
 
@@ -245,7 +245,10 @@ Toda decisão técnica relevante vai para `docs/decisions.md`, uma entrada curta
 **Decisão:** o que foi decidido
 **Motivo:** por quê
 **Alternativa descartada:** o que não foi escolhido e por quê
+**Substitui:** qual entrada anterior esta revisa — apenas quando for o caso
 ```
+
+Decisão revista **nunca é apagada**: entra entrada nova declarando o que substitui. O erro e a correção são ambos parte do registro.
 
 Isso existe porque as decisões serão questionadas na avaliação. Resposta escrita na data em que foi tomada vale mais do que justificativa reconstruída depois.
 
