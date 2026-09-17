@@ -52,7 +52,7 @@ O PR faz o que se propõe a fazer? Alteração fora do escopo declarado, arquivo
 ### BLOCO 2 — Segurança e dados (CRITICAL)
 
 Verifica que nenhum segredo, credencial ou dado real da Nextar entra no repositório.
-**Fonte:** `CLAUDE.md` §Segurança; `checklist_backend.md` §Segurança.
+**Fonte:** `CLAUDE.md` §4 › Segurança — não negociável; `checklist_backend.md` §Segurança (CRITICAL).
 **Bloqueia quando:** segredo ou credencial no código; `.env` real commitado; senha em log, resposta de API ou texto puro; nome de cliente, chave real de tarefa ou conteúdo de bug real em seed, teste ou exemplo.
 
 ### BLOCO 3 — Arquitetura em camadas (CRITICAL)
