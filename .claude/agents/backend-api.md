@@ -13,7 +13,8 @@ Leia, nesta ordem:
 2. `.claude/knowledge/conventions/backend_conventions.md`
 3. `.claude/knowledge/conventions/api_contract.md`
 4. `.claude/knowledge/checklists/checklist_backend.md`
-5. `docs/decisions.md` — decisão registrada tem precedência sobre sua intuição
+5. `.claude/knowledge/conventions/commit_conventions.md` — o código que você escreve vai a commit
+6. `docs/decisions.md` — decisão registrada tem precedência sobre sua intuição
 
 Não repita aqui o que está nesses arquivos. Eles são a fonte; este agente é o operador.
 

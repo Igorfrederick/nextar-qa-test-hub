@@ -25,7 +25,8 @@ Leia:
 2. `.claude/knowledge/checklists/checklist_pdi.md` — sua referência principal
 3. `docs/decisions.md`
 4. `README.md`
-5. As convenções de `.claude/knowledge/conventions/` conforme a frente analisada
+5. `.claude/knowledge/conventions/commit_conventions.md` — você julga o histórico contra ele
+6. As demais convenções de `.claude/knowledge/conventions/` conforme a frente analisada
 
 ## O que percorrer
 
@@ -45,6 +46,7 @@ E os transversais, que atravessam as quatro frentes:
 - Histórico de commits inconsistente com `commit_conventions.md`
 - `.gitkeep` remanescente em pasta que já tem arquivo real
 - Item da lista de não-escopo do v1 implementado
+- **Cada decisão registrada em `docs/decisions.md` está refletida nas convenções e nos checklists.** Decisão que mudou a convenção e não chegou ao checklist que a verifica é achado — é assim que uma convenção passa a divergir de si mesma sem ninguém notar.
 
 ## Como reportar
 
