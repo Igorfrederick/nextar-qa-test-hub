@@ -26,10 +26,12 @@ Escala por severidade: CRITICAL firme e urgente; HIGH direto; MEDIUM informativo
 |---|---|
 | `backend/**` | `backend_conventions.md` + `api_contract.md` |
 | `frontend/**` | `frontend_conventions.md` + `api_contract.md` |
-| `e2e/**` | `e2e_conventions.md` |
+| `e2e/**` | `e2e_conventions.md` + `api_contract.md` |
 | `docs/**`, raiz | BLOCO 9 apenas |
 
 O BLOCO 9 aplica `.claude/knowledge/conventions/commit_conventions.md` em todo review, qualquer que seja o caminho tocado — todo PR tem histórico.
+
+`api_contract.md` entra também em `e2e/**`: o catálogo de `code`s vive lá, e o teste assere sobre ele.
 
 ## Protocolo
 
@@ -49,29 +51,39 @@ O PR faz o que se propõe a fazer? Alteração fora do escopo declarado, arquivo
 
 ### BLOCO 2 — Segurança e dados (CRITICAL)
 
-Segredo ou credencial no código; `.env` real commitado; senha em log, resposta de API ou texto puro; dado real da Nextar (nome de cliente, chave real de tarefa, conteúdo de bug real) em seed, teste ou exemplo.
+Verifica que nenhum segredo, credencial ou dado real da Nextar entra no repositório.
+**Fonte:** `CLAUDE.md` §Segurança; `checklist_backend.md` §Segurança.
+**Bloqueia quando:** segredo ou credencial no código; `.env` real commitado; senha em log, resposta de API ou texto puro; nome de cliente, chave real de tarefa ou conteúdo de bug real em seed, teste ou exemplo.
 
 ### BLOCO 3 — Arquitetura em camadas (CRITICAL)
 
-- **Backend:** controller com regra de negócio; service conhecendo `req`/`res`; model conhecendo service
-- **Frontend:** regra de negócio dentro de componente reutilizável; chamada HTTP fora de `services/`
-- **E2E:** asserção, criação de massa ou chamada HTTP dentro do Page Object; setup por UI em vez de API
+Verifica a separação de responsabilidades nas três frentes.
+**Fonte:** `backend_conventions.md` §Arquitetura em camadas; `frontend_conventions.md` §Componentização; `e2e_conventions.md` §O que não fica no Page Object.
+**Bloqueia quando:** qualquer cruzamento de camada descrito nessas seções.
 
 ### BLOCO 4 — Nomenclatura e idioma
 
-Identificadores, entidades e campos em inglês; textos de interface em português. Sem mistura dentro do mesmo identificador. Aderência aos nomes definidos no `CLAUDE.md`.
+Verifica a aderência ao idioma e aos nomes definidos para o domínio.
+**Fonte:** `CLAUDE.md` §4 (Stack, idioma) e §3 (Domínio, nomes das entidades).
+**Bloqueia quando:** identificador em português, texto de interface em inglês, mistura dentro do mesmo identificador, ou nome divergente do domínio.
 
 ### BLOCO 5 — Contrato da API
 
-Rota, verbo e formato conforme `api_contract.md`. Erro no formato único com `code`. Status HTTP correto (400/401/403/404/409). Regra de negócio nova sem `code` correspondente → achado.
+Verifica que rota, verbo, formato de erro e status HTTP seguem o contrato.
+**Fonte:** `api_contract.md` — seções Rotas, Formato de erro, Status HTTP e Regras de negócio.
+**Bloqueia quando:** rota fora do contrato; erro fora do formato único; status incorreto para a natureza da falha; regra de negócio nova sem `code` correspondente.
 
 ### BLOCO 6 — Seletores
 
-Todo elemento interativo novo com `data-cy` no padrão `contexto-elemento[-identificador]`. Em testes: seletor por classe, texto visível, posição ou hierarquia de tags → achado.
+Verifica a presença e a qualidade dos seletores de teste.
+**Fonte:** `frontend_conventions.md` §Seletores; `e2e_conventions.md` §Seletores; `checklist_e2e.md` §Seletores.
+**Bloqueia quando:** elemento interativo novo sem `data-cy`; `data-cy` fora do padrão `contexto-elemento[-identificador]`; em teste, seletor por classe, texto visível, posição ou hierarquia de tags.
 
 ### BLOCO 7 — Cobertura de teste do diff
 
-Regra de negócio alterada ou criada sem teste no mesmo PR. Teste dependente de ordem ou de dado criado por outro teste. Massa hardcoded em vez de factory. `waitForTimeout` sem justificativa. Ausência de limpeza do que o teste criou.
+Verifica que o comportamento alterado pelo diff está coberto por teste.
+**Fonte:** `checklist_backend.md` §Testes; `checklist_e2e.md` §Independência e §Cobertura; `commit_conventions.md` — regra e teste no mesmo commit.
+**Bloqueia quando:** regra de negócio criada ou alterada sem teste no mesmo PR; teste dependente de ordem ou de dado de outro teste; massa hardcoded; `waitForTimeout` sem justificativa; ausência de limpeza do que o teste criou.
 
 ### BLOCO 8 — Lógica e robustez
 
@@ -86,7 +98,11 @@ Regra de negócio alterada ou criada sem teste no mesmo PR. Teste dependente de 
 
 ### BLOCO 9 — Histórico e documentação
 
-Commits conforme `commit_conventions.md`. Decisão técnica relevante no PR sem entrada correspondente em `docs/decisions.md`. `.gitkeep` remanescente em pasta que já tem arquivo real. README desatualizado em relação ao que o PR mudou.
+Verifica o histórico de commits e a sincronia entre decisões e convenções.
+**Fonte:** `commit_conventions.md` por inteiro; `CLAUDE.md` §8 (Log de decisões).
+**Bloqueia quando:** commit fora do padrão ou cortado por camada; decisão técnica relevante no PR sem entrada em `docs/decisions.md`; `.gitkeep` remanescente em pasta que já tem arquivo real; README desatualizado em relação ao que o PR mudou.
+
+**Regra de manutenção (HIGH):** entrada nova ou alterada em `docs/decisions.md` **sem a atualização correspondente em `.claude/knowledge/`** é achado HIGH. Verificar convenções **e** checklists: uma decisão que muda a convenção quase sempre muda o item de checklist que a verifica.
 
 ## Severidade
 

@@ -151,6 +151,8 @@ As convenções detalhadas vivem em `.claude/knowledge/`, fonte única lida por 
 | `checklists/checklist_e2e.md` | `e2e-playwright`, `code-reviewer` |
 | `checklists/checklist_pdi.md` | `revisor-pdi` |
 
+Os checklists são a **forma executável** das convenções: a lista item a item que o reviewer percorre e marca no scorecard. Checklist que virar paráfrase da convenção é removido, não mantido.
+
 **Regra de manutenção:** quando uma decisão nova entrar em `docs/decisions.md`, verificar se ela altera algum arquivo de `.claude/knowledge/`. Convenção que evolui sem o reviewer saber vira ruído silencioso.
 
 ### Dois pontos que não saem daqui
@@ -218,7 +220,7 @@ Cinco agentes em `.claude/agents/`. A divisão é por **unidade de análise e mo
 | `code-reviewer` | O **diff** de um PR, nas três frentes | Antes do merge | Não |
 | `revisor-pdi` | O **repositório inteiro** contra a rubrica | Antes de fechar uma frente | Não |
 
-Todos leem `.claude/knowledge/` — nenhum carrega checklist próprio.
+Todos os agentes leem `.claude/knowledge/` como fonte única de convenção. O `code-reviewer` carrega adicionalmente seu próprio procedimento de revisão — os dez blocos —, que é comportamento do agente, não convenção do projeto.
 
 ---
 
