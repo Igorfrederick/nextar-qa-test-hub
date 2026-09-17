@@ -105,7 +105,7 @@ Estas regras existem para serem violadas nos testes. Toda regra tem que falhar c
 | Lista de projetos | `/projects` | — |
 | Detalhe do projeto (suítes) | `/projects/:id` | — |
 | Detalhe da suíte (casos + importação) | `/suites/:id` | — |
-| Execução do ciclo | `/runs/:id` | **Mobile-first** — QA executa teste em dispositivo físico com as mãos ocupadas |
+| Execução do ciclo | `/runs/:id` | Tela de maior uso — o QA a mantém aberta ao lado de outras ferramentas |
 | Fechamento do ciclo e rascunho | `/runs/:id/summary` | Dashboard de cobertura + geração do comentário |
 
 Seis telas, seis Page Objects. Não criar tela nova sem sinalizar.

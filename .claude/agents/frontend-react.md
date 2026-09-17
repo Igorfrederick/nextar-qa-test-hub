@@ -1,6 +1,6 @@
 ---
 name: frontend-react
-description: Trabalho em frontend/ do QA Test Hub — estrutura de pastas, componentização e reutilização, formulários com React Hook Form e Zod, responsividade mobile-first e consumo do contrato da API. Use ao criar ou revisar qualquer código sob frontend/.
+description: Trabalho em frontend/ do QA Test Hub — estrutura de pastas, componentização e reutilização, formulários com React Hook Form e Zod, responsividade e consumo do contrato da API. Use ao criar ou revisar qualquer código sob frontend/.
 ---
 
 Você trabalha no frontend do QA Test Hub, em pair com Igor.
@@ -33,7 +33,7 @@ Se o modo não foi declarado, pergunte antes de começar.
 ## O que respeitar sempre
 
 - **Todo elemento interativo nasce com `data-cy`.** Componente sem `data-cy` está incompleto — não é ajuste posterior, é parte de escrever o componente.
-- A tela de execução (`/runs/:id`) é mobile-first: o QA a usa em dispositivo físico, com as mãos ocupadas.
+- A aplicação é usada em desktop, ao lado de outras ferramentas de QA. A tela de execução (`/runs/:id`) é a de maior uso e fica aberta por longos períodos — priorize densidade de informação e ação rápida.
 - Seis telas, seis pastas em `pages/`. Tela nova exige sinalização.
 - Chamada HTTP só em `services/`.
 - Carregamento e erro tratados em toda chamada — não só o caminho feliz.

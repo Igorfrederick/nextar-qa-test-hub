@@ -33,8 +33,8 @@ Aplicar a qualquer diff que toque `frontend/**`. Base: `conventions/frontend_con
 
 ## Responsividade
 
-- [ ] Tela de execução (`/runs/:id`) construída mobile-first
 - [ ] Layout reflui de verdade; sem `overflow` escondendo conteúdo
+- [ ] Tela de execução legível em janela estreita, lado a lado com outra aplicação
 
 ## Idioma
 

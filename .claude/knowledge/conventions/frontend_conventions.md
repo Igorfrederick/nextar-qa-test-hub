@@ -37,8 +37,9 @@ São seis telas, seis pastas em `pages/`. Tela nova exige sinalização antes.
 
 ## Responsividade
 
-- A tela de execução (`/runs/:id`) é **mobile-first** — o QA executa teste em dispositivo físico, com as mãos ocupadas
+- A aplicação é usada em **desktop**, ao lado de outras ferramentas de QA da equipe. Não há requisito mobile-first.
 - Responsividade real, com layout que reflui; `overflow` escondendo conteúdo é achado
+- A tela de execução (`/runs/:id`) é a de maior uso: fica aberta por longos períodos, lado a lado com outras janelas. Priorize densidade de informação útil e ação rápida sobre caso de teste, não área de toque
 
 ## Seletores
 

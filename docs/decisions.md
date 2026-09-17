@@ -8,6 +8,18 @@ Formato de cada entrada: decisão, motivo, alternativa descartada.
 
 ---
 
+## [17/09/2026] Tela de execução deixa de ser mobile-first
+
+**Decisão:** a aplicação é usada em desktop, ao lado de outras ferramentas de QA da equipe. A tela de execução (`/runs/:id`) deixa de ter requisito mobile-first. Responsividade continua exigida — layout que reflui, sem `overflow` escondendo conteúdo — mas a prioridade de design passa a ser densidade de informação e ação rápida sobre caso de teste, não área de toque.
+
+**Motivo:** a premissa original era que o QA executaria o teste em dispositivo físico, com as mãos ocupadas. Na prática, a aplicação é usada no computador, em complemento a outras ferramentas de QA desenvolvidas pela equipe. Projetar para um cenário de uso que não existe custaria decisões de layout — alvos de toque grandes, uma coluna, menos informação por tela — que pioram o uso real.
+
+**Alternativa descartada:** manter mobile-first por segurança, caso o uso em dispositivo apareça depois. Descartada porque mobile-first não é um extra que se carrega sem custo: ele determina a ordem das decisões de layout desde o primeiro componente.
+
+**Substitui:** a observação "Mobile-first — QA executa teste em dispositivo físico com as mãos ocupadas" da tabela de telas do `CLAUDE.md`. O `docs/handoff.md` preserva a premissa original como registro histórico; onde houver conflito, esta entrada vence.
+
+---
+
 ## [17/09/2026] Convenções extraídas para `.claude/knowledge/`
 
 **Decisão:** as convenções do projeto saem do `CLAUDE.md` e passam a viver em `.claude/knowledge/`, divididas em cinco arquivos de convenção e quatro checklists. O `CLAUDE.md` permanece como camada de contexto — domínio, escopo, telas, perfis, regras de negócio e protocolo — e referencia os arquivos em vez de descrevê-los por extenso.
