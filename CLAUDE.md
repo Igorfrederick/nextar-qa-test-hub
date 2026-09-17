@@ -271,7 +271,7 @@ Regras permanentes para qualquer agente neste repositório:
 
 1. Não implementar nada da lista de não-escopo (seção 2) sem sinalizar antes.
 2. Não introduzir biblioteca nova sem justificar e registrar em `docs/decisions.md`.
-3. Não gerar código que Igor não conseguiria explicar — preferir a solução clara à solução esperta.
+3. Não gerar código que Igor não conseguiria explicar — preferir a solução clara à solução esperta. (Aplica-se aos agentes que escrevem código; os dois revisores, que não escrevem, cobram o mesmo de quem escreveu.)
 4. Não criar abstração antes do terceiro uso.
 5. Todo componente interativo nasce com `data-cy`.
 6. Nenhum dado real, segredo ou credencial no código.

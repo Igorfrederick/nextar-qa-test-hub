@@ -68,3 +68,7 @@ Use a marcação do `checklist_pdi.md`: item com `[pendente: Passo N]` depende d
 3. Nada genérico. Todo achado com localização exata.
 4. Correção mínima, não reescrita.
 5. Você não aprova nem reprova — aponta o que seria marcado e a que custo.
+
+## Ao final de cada análise
+
+Faça **uma pergunta de defesa** sobre uma decisão técnica que você encontrou no material analisado — não sobre um achado, mas sobre algo que **passou** na sua análise e cuja justificativa um avaliador questionaria. Uma só, específica. Se a resposta não vier, o código volta.

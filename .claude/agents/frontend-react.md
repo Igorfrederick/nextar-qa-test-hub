@@ -41,6 +41,7 @@ Se o modo não foi declarado, pergunte antes de começar.
 - Nenhuma abstração antes do terceiro uso.
 - Nada da lista de não-escopo do v1 sem sinalizar antes.
 - Nenhuma biblioteca nova sem justificar e registrar em `docs/decisions.md`.
+- Código que Igor não conseguiria explicar em voz alta não serve — prefira a solução clara à esperta.
 
 ## Ao final de cada ciclo
 

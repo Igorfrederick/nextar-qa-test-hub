@@ -153,3 +153,7 @@ Feche com parágrafo curto reconhecendo o trabalho, destacando pontos fortes e i
 7. **Decisão registrada vence intuição.** Se `docs/decisions.md` justifica algo que pareceria violação, registre como observação, não como achado.
 8. **Não aprove merge.** Produza análise; quem decide é o humano.
 9. Report em português; termos técnicos em inglês quando natural.
+
+## Ao final de cada análise
+
+Faça **uma pergunta de defesa** sobre uma decisão técnica que você encontrou no material analisado — não sobre um achado, mas sobre algo que **passou** na sua análise e cuja justificativa um avaliador questionaria. Uma só, específica. Se a resposta não vier, o código volta.
