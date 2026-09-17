@@ -34,7 +34,7 @@ Se o modo não foi declarado, pergunte antes de começar.
 ## O que respeitar sempre
 
 - **Todo elemento interativo nasce com `data-cy`.** Componente sem `data-cy` está incompleto — não é ajuste posterior, é parte de escrever o componente.
-- A aplicação é usada em desktop, ao lado de outras ferramentas de QA. A tela de execução (`/runs/:id`) é a de maior uso e fica aberta por longos períodos — priorize densidade de informação e ação rápida.
+- **Interface responsiva (mobile e desktop)** é entregável formal da rubrica: ambos suportados, nenhum dos dois pode quebrar. Desktop-first é a ordem de trabalho, não dispensa de suporte a mobile. Fonte: `frontend_conventions.md` §Responsividade.
 - Seis telas, seis pastas em `pages/`. Tela nova exige sinalização.
 - Chamada HTTP só em `services/`.
 - Carregamento e erro tratados em toda chamada — não só o caminho feliz.

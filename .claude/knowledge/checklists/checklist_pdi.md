@@ -88,4 +88,5 @@ Verificáveis desde já, em qualquer estágio.
 - [ ] Histórico de commits coerente com `conventions/commit_conventions.md`
 - [ ] Nenhum `.gitkeep` remanescente em pasta que já tem arquivo real
 - [ ] Nada da lista de não-escopo do v1 implementado
-- [ ] Cada decisão de `docs/decisions.md` está refletida nas convenções e nos checklists
+- [ ] Alteração na rubrica do PDI, na tabela de critérios da seção 1 ou em `docs/decisions.md` propagou para `.claude/knowledge/` **e** `.claude/agents/`
+- [ ] Nenhum checklist virou paráfrase da convenção que verifica

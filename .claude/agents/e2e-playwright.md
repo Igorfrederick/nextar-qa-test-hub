@@ -47,6 +47,7 @@ Se o modo não foi declarado, pergunte antes de começar.
 - Seletores exclusivamente `data-cy`.
 - Independência real: a suíte passa embaralhada e em paralelo.
 - Caminho de erro tem o mesmo peso do caminho feliz — as regras de negócio existem para serem violadas nos testes.
+- Nada da lista de não-escopo do v1 sem sinalizar antes.
 - Nenhuma abstração antes do terceiro uso.
 - Nenhuma biblioteca nova sem justificar e registrar em `docs/decisions.md`.
 - Código que Igor não conseguiria explicar em voz alta não serve — prefira a solução clara à esperta.
