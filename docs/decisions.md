@@ -46,6 +46,14 @@ O dado que sustenta a decisão: os blocos do `code-reviewer` foram convertidos p
 
 **Cuidado de execução registrado:** ponteiro sem contexto vira indireção vazia, e ponteiro quebrado é pior que transcrição desatualizada — a transcrição ao menos diz algo errado que dá para notar; o ponteiro quebrado não diz nada. Por isso cada linha mantém **o que verificar** antes da fonte, e todo `§` referenciado é conferido contra o heading real.
 
+**Defesa registrada** — *"e se o agente simplesmente não seguir o ponteiro? A transcrição estava garantidamente no contexto dele."*
+
+O ponteiro não garante que o agente vai consultar a informação; garante que existe uma **fonte canônica** para ser consultada. A transcrição garantia presença no contexto daquele momento — isso é **disponibilidade, não consistência**. Se a fonte mudasse, o agente seguiria trabalhando sobre uma cópia obsoleta sem perceber.
+
+Os dois riscos não têm a mesma natureza. Um agente não consultar o ponteiro é **risco operacional**, tratado por processo: leitura obrigatória no protocolo do agente, afirmação do que garantir na própria linha-índice, e verificação pelos dois revisores, que conferem contra as mesmas fontes e não dependem de o construtor ter lido. Divergência entre cópias é **risco estrutural** — não se trata por processo, porque ninguém sabe que aconteceu. O modo de falha do ponteiro é visível (resolve ou não resolve); o da cópia é silencioso.
+
+Medição do próprio repositório que sustenta a escolha: **nenhum achado das quatro rodadas de revisão caiu nos blocos do `code-reviewer` que já usavam ponteiro** — todos caíram em trechos ainda transcritos.
+
 **Risco próprio do formato, aprendido na aplicação:** **a linha-índice precisa ser tão larga quanto a seção que indexa.** Índice mais estreito que a fonte faz o agente parar onde o índice termina — ele lê a afirmação, considera-a atendida e não abre o resto da seção. Aconteceu três vezes na primeira aplicação: "as oito regras de negócio" excluiu do enquadramento a cobertura de `401`/`403`, que é critério próprio da rubrica; "setup via API" omitiu o teardown, que é metade do nome da seção; e a linha de segurança cobria dois dos três bullets da fonte, deixando "nenhum dado real" sem gatilho. Transcrição desatualizada diz algo errado que dá para notar; índice estreito não diz nada sobre o que omitiu.
 
 ---
